@@ -30,6 +30,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GH_REGISTRY_TOKEN }}
       - name: Build the Docker image
-        run: docker pull ghcr.io/kaveeshag/moneyboss-user-service:v2 && docker tag ghcr.io/kaveeshag/moneyboss-user-service:v2 ghcr.io/shehanka/cashflow-user-api:latest
+        run: docker pull kaveeshag/moneyboss-user-service:v2 && docker tag kaveeshag/moneyboss-user-service:v2 ghcr.io/shehanka/cashflow-user-api:latest
       - name: GitHub Image Push
         run: docker push $SERVICE_NAME:latest

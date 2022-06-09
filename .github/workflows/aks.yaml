@@ -1,0 +1,32 @@
+name: Build and deploy an app to AKS
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+env:
+  GH_CONTAINER_REGISTRY: "cashflow.azurecr.io"
+  CONTAINER_NAME: "cashflow-api"
+  RESOURCE_GROUP: "cashflow"
+  CLUSTER_NAME: "cashflow-cluster"
+  DEPLOYMENT_MANIFEST_PATH: './k8s/cashflow-user-api.yaml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks out the repository this file is in
+    - uses: actions/checkout@v3
+      
+    - name: Set K8s context
+      uses: azure/k8s-set-context@v2
+      with:
+        method: kubeconfig
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+    # Deploys application based on given manifest file
+    - name: Deploys application
+      run: | 
+        kubectl apply -f ${{ env.DEPLOYMENT_MANIFEST_PATH }}
