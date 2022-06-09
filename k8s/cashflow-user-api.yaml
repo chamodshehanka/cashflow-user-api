@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cashflow-user-api
+  name: cashflow-user-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cashflow-user-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cashflow-user-api
+    spec:
+      containers: 
+      - image: ghcr.io/shehanka/cashflow-user-api
+        name: cashflow-user-api
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}

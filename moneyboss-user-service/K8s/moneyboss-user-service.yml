@@ -1,0 +1,21 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moneyboss-user-service
+  labels:
+    app: moneyboss-user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moneyboss-user-service
+  template:
+    metadata:
+      labels:
+        app: moneyboss-user-service
+    spec:
+      containers:
+      - name: moneyboss-user-service
+        image: kaveeshag/moneyboss-user-service:v2
+        ports:
+        - containerPort: 80
